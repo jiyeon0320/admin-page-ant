@@ -1,10 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Layout, Menu } from 'antd';
-import { AppstoreOutlined, BarChartOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
+import { BarChartOutlined, UserOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
-const { Header, Footer, Sider, Content, Table, Space } = Layout;
+const { Header, Footer, Sider, Content } = Layout;
 
-const DefaultLayout = () => {
+const DefaultLayout = ({ content }) => {
     return (
         <Layout>
             <Sider
@@ -15,28 +17,31 @@ const DefaultLayout = () => {
                     left: 0,
                 }}
             >
-                <div className="logo"> 햇반 로고 </div>
-                <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
+                <div
+                    className="logo"
+                    style={{ color: '#fff', textAlign: 'center', padding: '20px' }}
+                >
+                    관리자 페이지
+                </div>
+                <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
                     <Menu.Item key="1" icon={<BarChartOutlined />}>
-                        Option 1
+                        <Link to="/count">일일 방문자 수</Link>
                     </Menu.Item>
                     <Menu.Item key="2" icon={<UserOutlined />}>
-                        Option 2
-                    </Menu.Item>
-                    <Menu.Item key="3" icon={<AppstoreOutlined />}>
-                        Option 3
-                    </Menu.Item>
-                    <Menu.Item key="4" icon={<TeamOutlined />}>
-                        Option 4
+                        <Link to="/users">이벤트 응모자 정보</Link>
                     </Menu.Item>
                 </Menu>
             </Sider>
             <Layout>
-                <Header>Header</Header>
-                <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>Content</Content>
-                <Footer style={{ textAlign: 'center' }}>Footer</Footer>
+                <Header>헤더</Header>
+                {/* <Content style={{ width: '100%', margin: '24px 16px 0' }}> */}
+                <Content>content</Content>
+                <Footer>Ant Design ©2018 Created by Ant UED</Footer>
             </Layout>
         </Layout>
     );
+};
+DefaultLayout.propTypes = {
+    children: PropTypes.node,
 };
 export default DefaultLayout;
