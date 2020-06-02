@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Table } from 'antd';
+import { Layout, Table, Card } from 'antd';
 import styled from 'styled-components';
 import Sidebar from '../Layout/Sidebar';
 
@@ -7,6 +7,8 @@ const { Header, Content } = Layout;
 
 const StyledHeader = styled(Header)`
     background-color: #ffffff;
+    font-size: 30px;
+    font-weight: bold;
 `;
 const StyledContent = styled(Content)`
     background-color: pink;
@@ -15,6 +17,23 @@ const StyledContent = styled(Content)`
     min-height: 280px;
     overflow: auto;
 `;
+const StyledCard = styled(Card)`
+    text-align: center;
+    margin-bottom: 50px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px gray;
+    p > span {
+        font-size: 50px;
+        font-weight: bold;
+    }
+`;
+const CardWrapp = styled.div`
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 300px;
+`;
+
 const columns = [
     {
         title: '날짜',
@@ -25,32 +44,46 @@ const columns = [
         dataIndex: 'counter',
         sorter: {
             compare: (a, b) => a.counter - b.counter,
+            multiple: 5,
+        },
+    },
+    {
+        title: '실 참여자 수',
+        dataIndex: 'Participants',
+        sorter: {
+            compare: (a, b) => a.counter - b.counter,
             multiple: 4,
         },
     },
     {
-        title: '페이스북',
-        dataIndex: 'facebook',
-        sorter: {
-            compare: (a, b) => a.facebook - b.facebook,
-            multiple: 3,
-        },
-    },
-    {
-        title: '트위터',
-        dataIndex: 'twitter',
-        sorter: {
-            compare: (a, b) => a.twitter - b.twitter,
-            multiple: 2,
-        },
-    },
-    {
-        title: '카카오톡',
-        dataIndex: 'kakao',
-        sorter: {
-            compare: (a, b) => a.kakao - b.kakao,
-            multiple: 1,
-        },
+        title: 'SNS',
+        children: [
+            {
+                title: '페이스북',
+                dataIndex: 'facebook',
+                key: 'age',
+                sorter: {
+                    compare: (a, b) => a.facebook - b.facebook,
+                    multiple: 3,
+                },
+            },
+            {
+                title: '트위터',
+                dataIndex: 'twitter',
+                sorter: {
+                    compare: (a, b) => a.twitter - b.twitter,
+                    multiple: 2,
+                },
+            },
+            {
+                title: '카카오톡',
+                dataIndex: 'kakao',
+                sorter: {
+                    compare: (a, b) => a.kakao - b.kakao,
+                    multiple: 1,
+                },
+            },
+        ],
     },
 ];
 
@@ -98,9 +131,29 @@ const Count = () => {
             <Sidebar />
             <Layout>
                 <StyledHeader>일일 방문자 수</StyledHeader>
-                {/* <StyledContent>{content}</StyledContent> */}
                 <StyledContent>
-                    <Table columns={columns} dataSource={data} onChange={onChange}></Table>
+                    <CardWrapp>
+                        <StyledCard title="오늘 방문자 수 " bordered={false} style={{ width: 300 }}>
+                            <p>
+                                <span>50</span>명
+                            </p>
+                        </StyledCard>
+                        <StyledCard
+                            title=" 이모티콘 잔여 수량 "
+                            bordered={false}
+                            style={{ width: 300 }}
+                        >
+                            <p>
+                                <span>5050</span>개
+                            </p>
+                        </StyledCard>
+                    </CardWrapp>
+                    <Table
+                        style={{ fontSize: '60px' }}
+                        columns={columns}
+                        dataSource={data}
+                        onChange={onChange}
+                    ></Table>
                 </StyledContent>
             </Layout>
         </Layout>

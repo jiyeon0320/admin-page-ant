@@ -8,6 +8,7 @@ function App() {
         <BrowserRouter>
             <DefaultLayout2>
                 <Switch>
+                    {/* <Route path="/" component={Pages.Count} /> */}
                     <Route path="/count" component={Pages.Count} />
                     <Route path="/users" component={Pages.Users} />
                 </Switch>
