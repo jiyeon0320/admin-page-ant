@@ -2,6 +2,7 @@ import React from 'react';
 import { Layout, Table } from 'antd';
 import styled from 'styled-components';
 import Sidebar from '../Layout/Sidebar';
+import { VerticalAlignBottomOutlined } from '@ant-design/icons';
 // import './Users.css';
 const { Header, Content } = Layout;
 
@@ -28,22 +29,31 @@ const columns = [
     {
         title: '이름',
         dataIndex: 'name',
+        render: (name) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{name}</p>,
     },
     {
         title: '연락처',
         dataIndex: 'phone',
+        align: 'center',
+        render: (name) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{name}</p>,
     },
     {
         title: '이벤트1 참여',
         dataIndex: 'event1',
+        align: 'center',
+        render: (name) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{name}</p>,
     },
     {
         title: '이벤트2 참여',
         dataIndex: 'event2',
+        align: 'center',
+        render: (name) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{name}</p>,
     },
     {
         title: '이벤트2 코드',
         dataIndex: 'event2code',
+        align: 'center',
+        render: (name) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{name}</p>,
         sorter: {
             compare: (a, b) => a.event2code - b.event2code,
             multiple: 2,
@@ -52,6 +62,8 @@ const columns = [
     {
         title: '이모티콘 수령 유무',
         dataIndex: 'emoticon',
+        align: 'center',
+        render: (name) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{name}</p>,
     },
 ];
 
@@ -110,12 +122,13 @@ const Users = () => {
         <Layout>
             <Sidebar />
             <Layout>
-                <StyledHeader>이모티콘 당첨자 정보</StyledHeader>
+                <StyledHeader>이벤트 당첨자 정보</StyledHeader>
                 <StyledContent>
                     <StyledTable
                         columns={columns}
                         dataSource={data}
                         onChange={onChange}
+                        size="small"
                     ></StyledTable>
                 </StyledContent>
             </Layout>

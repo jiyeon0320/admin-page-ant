@@ -7,11 +7,11 @@ function App() {
     return (
         <BrowserRouter>
             <DefaultLayout2>
-                <Switch>
-                    {/* <Route path="/" component={Pages.Count} /> */}
-                    <Route path="/count" component={Pages.Count} />
-                    <Route path="/users" component={Pages.Users} />
-                </Switch>
+                {/* <Switch> */}
+                {/* <Route path="/" component={Pages.Count} /> */}
+                <Route exact path="/" component={Pages.Count} />
+                <Route exact path="/users" component={Pages.Users} />
+                {/* </Switch> */}
             </DefaultLayout2>
         </BrowserRouter>
     );

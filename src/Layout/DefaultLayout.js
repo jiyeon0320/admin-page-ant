@@ -13,6 +13,7 @@ const DefaultLayout = ({ content }) => {
                 style={{
                     overflow: 'auto',
                     height: '100vh',
+                    width: '',
                     position: 'fixed',
                     left: 0,
                 }}

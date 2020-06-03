@@ -10,18 +10,22 @@ const StyledHeader = styled(Header)`
     font-size: 30px;
     font-weight: bold;
 `;
+const TableWrap = styled.div`
+    /* font-weight: bold; */
+`;
 const StyledContent = styled(Content)`
-    background-color: pink;
+    background-color: #ffffff;
     padding: 24px;
     margin: 0;
     min-height: 280px;
     overflow: auto;
 `;
 const StyledCard = styled(Card)`
+    width: 300px;
     text-align: center;
     margin-bottom: 50px;
     border-radius: 10px;
-    box-shadow: 5px 5px 10px gray;
+    box-shadow: 3px 3px 10px gray;
     p > span {
         font-size: 50px;
         font-weight: bold;
@@ -38,10 +42,15 @@ const columns = [
     {
         title: '날짜',
         dataIndex: 'date',
+        key: 'date',
+        align: 'center',
+        render: (date) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{date}</p>,
     },
     {
         title: '접속자 수',
         dataIndex: 'counter',
+        align: 'center',
+        render: (counter) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{counter}</p>,
         sorter: {
             compare: (a, b) => a.counter - b.counter,
             multiple: 5,
@@ -49,9 +58,13 @@ const columns = [
     },
     {
         title: '실 참여자 수',
-        dataIndex: 'Participants',
+        dataIndex: 'participants',
+        align: 'center',
+        render: (participants) => (
+            <p style={{ fontSize: '18px', paddingTop: '11px' }}>{participants}</p>
+        ),
         sorter: {
-            compare: (a, b) => a.counter - b.counter,
+            compare: (a, b) => a.participants - b.participants,
             multiple: 4,
         },
     },
@@ -61,6 +74,10 @@ const columns = [
             {
                 title: '페이스북',
                 dataIndex: 'facebook',
+                align: 'center',
+                render: (facebook) => (
+                    <p style={{ fontSize: '18px', paddingTop: '11px' }}>{facebook}</p>
+                ),
                 key: 'age',
                 sorter: {
                     compare: (a, b) => a.facebook - b.facebook,
@@ -70,6 +87,10 @@ const columns = [
             {
                 title: '트위터',
                 dataIndex: 'twitter',
+                align: 'center',
+                render: (twitter) => (
+                    <p style={{ fontSize: '18px', paddingTop: '11px' }}>{twitter}</p>
+                ),
                 sorter: {
                     compare: (a, b) => a.twitter - b.twitter,
                     multiple: 2,
@@ -78,6 +99,8 @@ const columns = [
             {
                 title: '카카오톡',
                 dataIndex: 'kakao',
+                align: 'center',
+                render: (kakao) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{kakao}</p>,
                 sorter: {
                     compare: (a, b) => a.kakao - b.kakao,
                     multiple: 1,
@@ -91,7 +114,8 @@ const data = [
     {
         key: '1',
         date: '2020-05-28',
-        counter: 98,
+        counter: 150,
+        participants: 98,
         facebook: 30,
         twitter: 50,
         kakao: 18,
@@ -99,7 +123,8 @@ const data = [
     {
         key: '2',
         date: '2020-05-29',
-        counter: 500,
+        counter: 980,
+        participants: 500,
         facebook: 250,
         twitter: 103,
         kakao: 77,
@@ -107,7 +132,8 @@ const data = [
     {
         key: '3',
         date: '2020-05-30',
-        counter: 258,
+        counter: 1204,
+        participants: 258,
         facebook: 12,
         twitter: 200,
         kakao: 30,
@@ -115,7 +141,8 @@ const data = [
     {
         key: '4',
         date: '2020-05-31',
-        counter: 1500,
+        counter: 3250,
+        participants: 1500,
         facebook: 525,
         twitter: 600,
         kakao: 350,
@@ -123,6 +150,10 @@ const data = [
 ];
 
 const Count = () => {
+    // const Table = (prop) => {
+    //     console.log(prop.columns[0].title);
+    // };
+
     const onChange = (pagination, filters, sorter, extra) => {
         console.log('params', pagination, filters, sorter, extra);
     };
@@ -133,27 +164,26 @@ const Count = () => {
                 <StyledHeader>일일 방문자 수</StyledHeader>
                 <StyledContent>
                     <CardWrapp>
-                        <StyledCard title="오늘 방문자 수 " bordered={false} style={{ width: 300 }}>
+                        <StyledCard title="오늘 방문자 수 " bordered={false}>
                             <p>
                                 <span>50</span>명
                             </p>
                         </StyledCard>
-                        <StyledCard
-                            title=" 이모티콘 잔여 수량 "
-                            bordered={false}
-                            style={{ width: 300 }}
-                        >
+                        <StyledCard title=" 이모티콘 잔여 수량 " bordered={false}>
                             <p>
                                 <span>5050</span>개
                             </p>
                         </StyledCard>
                     </CardWrapp>
-                    <Table
-                        style={{ fontSize: '60px' }}
-                        columns={columns}
-                        dataSource={data}
-                        onChange={onChange}
-                    ></Table>
+
+                    <TableWrap>
+                        <Table
+                            columns={columns}
+                            dataSource={data}
+                            onChange={onChange}
+                            size="small"
+                        ></Table>
+                    </TableWrap>
                 </StyledContent>
             </Layout>
         </Layout>
