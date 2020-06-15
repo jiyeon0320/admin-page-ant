@@ -16,7 +16,7 @@ const tailLayout = {
     },
 };
 
-const Login = () => {
+const AdminLogin = () => {
     const onFinish = (values) => {
         console.log('Success:', values);
     };
@@ -72,4 +72,4 @@ const Login = () => {
         </Form>
     );
 };
-export default Login();
+export default AdminLogin();
