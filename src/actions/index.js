@@ -11,9 +11,6 @@ export const SUCCESS_DAILY_STAT = 'successDailyStat';
 export const REQUEST_EVENT_USERS = 'requestEventUsers';
 export const SUCCESS_EVENT_USERS = 'successEventUsers';
 
-
-// export const FAILURE_DAILY_STAT = 'failureDailyStat';
-
 export const requestAdminLogin = ({ userid, pwd }) => ({
     type: REQUEST_ADMIN_LOGIN,
     payload: {

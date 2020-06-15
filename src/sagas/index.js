@@ -13,17 +13,18 @@ function* authenticationWorkFlow() {
                     payload: { userid, pwd },
                 } = yield take(Actions.REQUEST_ADMIN_LOGIN);
 
-                const { result, account } = yield call(Api.postAdminLogin, { userid, pwd });
-                console.log('saga result: ' + account);
-                if (result === 0) {
+                const { result, data } = yield call(Api.postAdminLogin, { userid, pwd });
+                console.log('saga result: ' + result);
+                console.log('saga data: ' + data);
+                if (result === 1) {
                     waitLogin = false;
                     sessionStorage.setItem(
                         'auth',
                         JSON.stringify({
-                            ...account,
+                            ...data,
                         }),
                     );
-                    yield put(Actions.successAdminLogin({ ...account }));
+                    yield put(Actions.successAdminLogin({ ...data }));
                 } else {
                     console.log('Login Failed!');
                     alert('아이디와 비밀번호를 다시 입력해주세요.');
@@ -46,14 +47,14 @@ function* requsetDailyStatFlow(action) {
     // if (result === 0) {
     //     yield put(Actions.successDailyStat([]));
     // } else {
-        yield put(Actions.successDailyStat(data));
+    yield put(Actions.successDailyStat(data));
     // }
 }
 
-function* requsetEventUsersFlow (action) {
-    const {data} = yield call(Api.postEventUsers, action.payload);
+function* requsetEventUsersFlow(action) {
+    const { data } = yield call(Api.postEventUsers, action.payload);
     console.log(data);
-    yield put(Actions.successEventUsers(data))
+    yield put(Actions.successEventUsers(data));
 }
 export default function* () {
     yield fork(authenticationWorkFlow);
