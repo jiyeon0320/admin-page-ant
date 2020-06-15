@@ -2,7 +2,7 @@ import React from 'react';
 import { Layout, Table } from 'antd';
 import styled from 'styled-components';
 import Sidebar from '../Layout/Sidebar';
-import { VerticalAlignBottomOutlined } from '@ant-design/icons';
+// import { VerticalAlignBottomOutlined } from '@ant-design/icons';
 // import './Users.css';
 const { Header, Content } = Layout;
 
