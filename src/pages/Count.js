@@ -1,7 +1,9 @@
-import React from 'react';
+import React,{useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { requestDailyStat } from '../actions';
 import { Layout, Table, Card } from 'antd';
 import styled from 'styled-components';
-import Sidebar from '../Layout/Sidebar';
+import Sidebar from '../layouts/Sidebar';
 
 const { Header, Content } = Layout;
 
@@ -42,35 +44,85 @@ const columns = [
     {
         title: '날짜',
         dataIndex: 'date',
-        key: 'date',
+        key: 'trim_date',
         align: 'center',
-        render: (date) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{date}</p>,
+        render: (trim_date) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{trim_date}</p>,
     },
     {
         title: '접속자 수',
-        dataIndex: 'counter',
+        dataIndex: 'visitor',
         align: 'center',
-        render: (counter) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{counter}</p>,
+        render: (visitor) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{visitor}</p>,
         sorter: {
-            compare: (a, b) => a.counter - b.counter,
+            compare: (a, b) => a.visitor - b.visitor,
             multiple: 5,
         },
     },
     {
         title: '실 참여자 수',
-        dataIndex: 'participants',
+        dataIndex: 'joiner',
         align: 'center',
-        render: (participants) => (
-            <p style={{ fontSize: '18px', paddingTop: '11px' }}>{participants}</p>
+        render: (joiner) => (
+            <p style={{ fontSize: '18px', paddingTop: '11px' }}>{joiner}</p>
         ),
         sorter: {
-            compare: (a, b) => a.participants - b.participants,
+            compare: (a, b) => a.joiner - b.joiner,
             multiple: 4,
         },
     },
     {
+        title: '유입 경로',
+        children: [
+            {
+                title: '카카오톡',
+                dataIndex: 'channel_kakao',
+                align: 'center',
+                render: (channel_kakao) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{channel_kakao}</p>,
+                sorter: {
+                    compare: (a, b) => a.channel_kakao - b.channel_kakao,
+                    multiple: 1,
+                },
+            },
+            {
+                title: '페이스북',
+                dataIndex: 'channel_fb',
+                align: 'center',
+                render: (channel_fb) => (
+                    <p style={{ fontSize: '18px', paddingTop: '11px' }}>{channel_fb}</p>
+                ),
+                sorter: {
+                    compare: (a, b) => a.channel_fb - b.channel_fb,
+                    multiple: 3,
+                },
+            },
+            {
+                title: '트위터',
+                dataIndex: 'channel_tw',
+                align: 'center',
+                render: (channel_tw) => (
+                    <p style={{ fontSize: '18px', paddingTop: '11px' }}>{channel_tw}</p>
+                ),
+                sorter: {
+                    compare: (a, b) => a.channel_tw - b.channel_tw,
+                    multiple: 2,
+                },
+            },
+
+        ],
+    },
+    {
         title: 'SNS',
         children: [
+            {
+                title: '카카오톡',
+                dataIndex: 'kakao',
+                align: 'center',
+                render: (kakao) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{kakao}</p>,
+                sorter: {
+                    compare: (a, b) => a.kakao - b.kakao,
+                    multiple: 1,
+                },
+            },
             {
                 title: '페이스북',
                 dataIndex: 'facebook',
@@ -96,63 +148,23 @@ const columns = [
                     multiple: 2,
                 },
             },
-            {
-                title: '카카오톡',
-                dataIndex: 'kakao',
-                align: 'center',
-                render: (kakao) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{kakao}</p>,
-                sorter: {
-                    compare: (a, b) => a.kakao - b.kakao,
-                    multiple: 1,
-                },
-            },
+
         ],
     },
 ];
 
-const data = [
-    {
-        key: '1',
-        date: '2020-05-28',
-        counter: 150,
-        participants: 98,
-        facebook: 30,
-        twitter: 50,
-        kakao: 18,
-    },
-    {
-        key: '2',
-        date: '2020-05-29',
-        counter: 980,
-        participants: 500,
-        facebook: 250,
-        twitter: 103,
-        kakao: 77,
-    },
-    {
-        key: '3',
-        date: '2020-05-30',
-        counter: 1204,
-        participants: 258,
-        facebook: 12,
-        twitter: 200,
-        kakao: 30,
-    },
-    {
-        key: '4',
-        date: '2020-05-31',
-        counter: 3250,
-        participants: 1500,
-        facebook: 525,
-        twitter: 600,
-        kakao: 350,
-    },
-];
 
 const Count = () => {
-    // const Table = (prop) => {
-    //     console.log(prop.columns[0].title);
-    // };
+    // const [data, setData] = useState('');
+    const user = useSelector(state=>state.auth.userid)
+    const countData = useSelector((state) => (state.countData));
+    const dispatch = useDispatch();
+    console.log(countData);
+    useEffect(() => {
+        if (user) {
+          dispatch(requestDailyStat({ user }));
+        }
+      }, [user, dispatch]);
 
     const onChange = (pagination, filters, sorter, extra) => {
         console.log('params', pagination, filters, sorter, extra);
@@ -164,7 +176,7 @@ const Count = () => {
                 <StyledHeader>일일 방문자 수</StyledHeader>
                 <StyledContent>
                     <CardWrapp>
-                        <StyledCard title="오늘 방문자 수 " bordered={false}>
+                        {/* <StyledCard title="오늘 방문자 수 " bordered={false}>
                             <p>
                                 <span>50</span>명
                             </p>
@@ -173,16 +185,22 @@ const Count = () => {
                             <p>
                                 <span>5050</span>개
                             </p>
-                        </StyledCard>
+                        </StyledCard> */}
                     </CardWrapp>
 
                     <TableWrap>
-                        <Table
-                            columns={columns}
-                            dataSource={data}
-                            onChange={onChange}
-                            size="small"
-                        ></Table>
+                    <Table
+                        columns={columns}
+                        dataSource={countData}
+                        onChange={onChange}
+                        size="small"
+                    ></Table>
+                    
+                    {/* {dailyData.map((data) => (
+                        <p>{data.trim_date}</p>
+                        ))}
+                        <p>{dailyData}</p> */}
+
                     </TableWrap>
                 </StyledContent>
             </Layout>

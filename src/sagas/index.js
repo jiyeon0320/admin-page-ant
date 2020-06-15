@@ -2,7 +2,7 @@ import { takeLatest, put, call, fork, select, take } from 'redux-saga/effects';
 import * as Api from '../apis';
 import * as Actions from '../actions/index';
 
-function* authenticationWorkflow() {
+function* authenticationWorkFlow() {
     while (true) {
         let auth = yield select((state) => state.auth);
         let waitLogin = !auth;
@@ -11,11 +11,11 @@ function* authenticationWorkflow() {
             try {
                 const {
                     payload: { userid, pwd },
-                } = yield TrackEvent(Actions.REQUEST_ADMIN_LOGIN);
+                } = yield take(Actions.REQUEST_ADMIN_LOGIN);
 
                 const { result, account } = yield call(Api.postAdminLogin, { userid, pwd });
-                console.log(result);
-                if (result === 1) {
+                console.log('saga result: ' + account);
+                if (result === 0) {
                     waitLogin = false;
                     sessionStorage.setItem(
                         'auth',
@@ -27,6 +27,7 @@ function* authenticationWorkflow() {
                 } else {
                     console.log('Login Failed!');
                     alert('아이디와 비밀번호를 다시 입력해주세요.');
+                    return;
                 }
             } catch (e) {
                 console.error(e);
@@ -40,15 +41,22 @@ function* authenticationWorkflow() {
 }
 
 function* requsetDailyStatFlow(action) {
-    const { result, data } = yield call(Api.postDailyStat, action.payload);
-    if (result === 0) {
-        yield put(Actions.successDailyStat([]));
-    } else {
+    const { data } = yield call(Api.postDailyStat, action.payload);
+    console.log(data);
+    // if (result === 0) {
+    //     yield put(Actions.successDailyStat([]));
+    // } else {
         yield put(Actions.successDailyStat(data));
-    }
+    // }
 }
 
+function* requsetEventUsersFlow (action) {
+    const {data} = yield call(Api.postEventUsers, action.payload);
+    console.log(data);
+    yield put(Actions.successEventUsers(data))
+}
 export default function* () {
-    yield fork(authenticationWorkflow);
+    yield fork(authenticationWorkFlow);
     yield takeLatest(Actions.REQUEST_DAILY_STAT, requsetDailyStatFlow);
+    yield takeLatest(Actions.REQUEST_EVENT_USERS, requsetEventUsersFlow);
 }

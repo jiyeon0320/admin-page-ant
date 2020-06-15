@@ -5,10 +5,10 @@ import 'normalize.css';
 import createSagaMiddleware from 'redux-saga';
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import App from './routes/App';
 import { Provider } from 'react-redux';
 import reducer, { initializeState } from './reducers';
 import rootSaga from './sagas';
-import App from './routes/App';
 import 'react-app-polyfill/ie9'; // For IE 9-11 support
 import 'react-app-polyfill/ie11';
 

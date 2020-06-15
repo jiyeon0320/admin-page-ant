@@ -14,7 +14,7 @@ const AuthRoute = ({ component: Component, ...rest }) => {
                 ) : (
                     <Redirect
                         to={{
-                            pathname: '/admin-login',
+                            pathname: '/login',
                         }}
                     />
                 )
@@ -22,5 +22,6 @@ const AuthRoute = ({ component: Component, ...rest }) => {
         />
     );
 };
+
 
 export default AuthRoute;

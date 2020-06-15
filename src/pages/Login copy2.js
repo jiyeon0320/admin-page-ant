@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, Checkbox } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { requestLogin, requestAdminLogin } from '../actions';
 
 const layout = {
     labelCol: {
@@ -17,6 +19,20 @@ const tailLayout = {
 };
 
 const AdminLogin = () => {
+    const dispatch = useDispatch();
+    const auth = useSelector(state=>state.auth);
+    const [userid, setUserid] = useState('');
+    const [pwd, setPwd] = useState('');
+    const history = useHistory();
+    useEffect(()=>{
+        if(auth !== null){
+            history.push('/');  //count
+        }
+    },[auth, history]);
+
+    const onClick=()=>{
+        dispatch(requestAdminLogin({userid, pwd}));
+    }
     const onFinish = (values) => {
         console.log('Success:', values);
     };
@@ -24,6 +40,7 @@ const AdminLogin = () => {
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
+
     return (
         <Form
             {...layout}
@@ -37,6 +54,9 @@ const AdminLogin = () => {
             <Form.Item
                 label="Username"
                 name="username"
+                value={userid}
+                onChange={e=> setUserid(e.target.value)}
+                autoFocus
                 rules={[
                     {
                         required: true,
@@ -50,6 +70,8 @@ const AdminLogin = () => {
             <Form.Item
                 label="Password"
                 name="password"
+                value={pwd}
+                onChange={e=>setPwd(e.target.value)}
                 rules={[
                     {
                         required: true,
@@ -65,8 +87,8 @@ const AdminLogin = () => {
             </Form.Item>
 
             <Form.Item {...tailLayout}>
-                <Button type="primary" htmlType="submit">
-                    Submit
+                <Button type="primary" htmlType="submit" onClick={onClick} >
+                    로그인
                 </Button>
             </Form.Item>
         </Form>

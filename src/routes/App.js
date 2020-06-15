@@ -1,22 +1,26 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-// import DefaultLayout2 from '../Layout/DefaultLayout2';
+import { DefaultLayout2, FullSizeLayout } from '../layouts';
 import * as Pages from '../pages';
-// import AuthRoute from '../routes/AuthRoute';
+import AuthRoute from '../routes/AuthRoute';
 
 function App() {
     return (
         <BrowserRouter>
-            {/* <DefaultLayout2> */}
             <Switch>
-                <Route exact path="/" component={Pages.Count} />
-                <Route exact path="/users" component={Pages.Users} />
-                {/* <AuthRoute exact path="/" component={Pages.Count} />
-                <AuthRoute exact path="/users" component={Pages.Users} /> */}
-                {/* <Route path="/" component={Pages.Count} /> */}
-                <Route exact path="/login" component={Pages.AdminLogin} />
+                <Route exact path="/login" component={Pages.Login}>
+                    <FullSizeLayout>
+                        <Pages.Login />
+                    </FullSizeLayout>
+                </Route>
+                <DefaultLayout2>
+                    <Switch>
+                        <AuthRoute exact path="/" component={Pages.Count} />
+                        <AuthRoute exact path="/users" component={Pages.Users} />
+                        <Route component={Pages.NotFound} />
+                    </Switch>
+                </DefaultLayout2>
             </Switch>
-            {/* </DefaultLayout2> */}
         </BrowserRouter>
     );
 }

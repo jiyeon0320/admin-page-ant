@@ -7,6 +7,11 @@ export const SUCCESS_LOGOUT = 'successLogout';
 
 export const REQUEST_DAILY_STAT = 'requestDailyStat';
 export const SUCCESS_DAILY_STAT = 'successDailyStat';
+
+export const REQUEST_EVENT_USERS = 'requestEventUsers';
+export const SUCCESS_EVENT_USERS = 'successEventUsers';
+
+
 // export const FAILURE_DAILY_STAT = 'failureDailyStat';
 
 export const requestAdminLogin = ({ userid, pwd }) => ({
@@ -29,12 +34,23 @@ export const successLogout = () => ({
     type: SUCCESS_LOGOUT,
 });
 
-export const requestDailyStat = () => ({
+export const requestDailyStat = ({ userid, pwd }) => ({
     type: REQUEST_DAILY_STAT,
-    // payload:
+    payload: {
+        userid,
+        pwd,
+    },
 });
 
 export const successDailyStat = (data) => ({
     type: SUCCESS_DAILY_STAT,
+    payload: data,
+});
+
+export const requestEventUsers = () => ({
+    type: REQUEST_EVENT_USERS,
+});
+export const successEventUsers = (data) => ({
+    type: SUCCESS_EVENT_USERS,
     payload: data,
 });

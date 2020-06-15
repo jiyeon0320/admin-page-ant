@@ -4,5 +4,6 @@ const PREFIX = 'admin';
 const config = {
     adminLogin: `${DOMAIN}/${PREFIX}/admin-login`,
     adminDaliyStat: `${DOMAIN}/${PREFIX}/daily-stat`,
+    adminEventUsers: `${DOMAIN}/${PREFIX}/event-users`,
 };
 export default config;
