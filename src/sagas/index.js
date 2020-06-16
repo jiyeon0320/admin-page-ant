@@ -43,12 +43,12 @@ function* authenticationWorkFlow() {
 }
 
 function* requsetDailyStatFlow(action) {
-    // const response = yield call(Api.postDailyStat, action.payload);
-    // yield put(Actions.successDailyStat({response.type1, response.type2}));
+    const response = yield call(Api.postDailyStat, action.payload);
+    yield put(Actions.successDailyStat(response));
 
-    const response = yield call(Api.postDailyStat);
-    const { type1, type2 } = response;
-    yield put(Actions.successDailyStat({ type1, type2 }));
+    // const response = yield call(Api.postDailyStat);
+    // const { type1, type2 } = response;
+    // yield put(Actions.successDailyStat({ type1, type2 }));
 }
 
 function* requsetEventUsersFlow(action) {

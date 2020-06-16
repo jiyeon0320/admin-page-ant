@@ -1,4 +1,9 @@
-import { SUCCESS_ADMIN_LOGIN, SUCCESS_LOGOUT, SUCCESS_DAILY_STAT, SUCCESS_EVENT_USERS } from '../actions';
+import {
+    SUCCESS_ADMIN_LOGIN,
+    SUCCESS_LOGOUT,
+    SUCCESS_DAILY_STAT,
+    SUCCESS_EVENT_USERS,
+} from '../actions';
 
 export const initializeState = {
     auth: null,
@@ -15,7 +20,7 @@ export default (state = initializeState, action) => {
         case SUCCESS_DAILY_STAT:
             return { ...state, countData: action.payload };
         case SUCCESS_EVENT_USERS:
-            return { ...state, usersData: action.payload }
+            return { ...state, usersData: action.payload };
         default:
             return state;
     }
