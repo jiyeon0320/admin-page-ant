@@ -13,10 +13,11 @@ function* authenticationWorkFlow() {
                     payload: { userid, pwd },
                 } = yield take(Actions.REQUEST_ADMIN_LOGIN);
 
-                const { result, data } = yield call(Api.postAdminLogin, { userid, pwd });
-                console.log('saga result: ' + result);
-                console.log('saga data: ' + data);
-                if (result === 1) {
+                const { result, data } = yield call(Api.postAdminLogin, {
+                    userid,
+                    pwd,
+                });
+                if (result && data.result === 1) {
                     waitLogin = false;
                     sessionStorage.setItem(
                         'auth',
@@ -42,13 +43,12 @@ function* authenticationWorkFlow() {
 }
 
 function* requsetDailyStatFlow(action) {
-    const { data } = yield call(Api.postDailyStat, action.payload);
-    console.log(data);
-    // if (result === 0) {
-    //     yield put(Actions.successDailyStat([]));
-    // } else {
-    yield put(Actions.successDailyStat(data));
-    // }
+    // const response = yield call(Api.postDailyStat, action.payload);
+    // yield put(Actions.successDailyStat({response.type1, response.type2}));
+
+    const response = yield call(Api.postDailyStat);
+    const { type1, type2 } = response;
+    yield put(Actions.successDailyStat({ type1, type2 }));
 }
 
 function* requsetEventUsersFlow(action) {

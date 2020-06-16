@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { requestDailyStat } from '../actions';
 import { Layout, Table, Card } from 'antd';
@@ -62,9 +62,7 @@ const columns = [
         title: '실 참여자 수',
         dataIndex: 'joiner',
         align: 'center',
-        render: (joiner) => (
-            <p style={{ fontSize: '18px', paddingTop: '11px' }}>{joiner}</p>
-        ),
+        render: (joiner) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{joiner}</p>,
         sorter: {
             compare: (a, b) => a.joiner - b.joiner,
             multiple: 4,
@@ -77,7 +75,9 @@ const columns = [
                 title: '카카오톡',
                 dataIndex: 'channel_kakao',
                 align: 'center',
-                render: (channel_kakao) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{channel_kakao}</p>,
+                render: (channel_kakao) => (
+                    <p style={{ fontSize: '18px', paddingTop: '11px' }}>{channel_kakao}</p>
+                ),
                 sorter: {
                     compare: (a, b) => a.channel_kakao - b.channel_kakao,
                     multiple: 1,
@@ -107,7 +107,6 @@ const columns = [
                     multiple: 2,
                 },
             },
-
         ],
     },
     {
@@ -148,23 +147,19 @@ const columns = [
                     multiple: 2,
                 },
             },
-
         ],
     },
 ];
 
-
 const Count = () => {
     // const [data, setData] = useState('');
-    const user = useSelector(state=>state.auth.userid)
-    const countData = useSelector((state) => (state.countData));
+    const user = useSelector((state) => state.auth.userid);
+    const countData = useSelector((state) => state.countData);
     const dispatch = useDispatch();
     console.log(countData);
     useEffect(() => {
-        if (user) {
-          dispatch(requestDailyStat({ user }));
-        }
-      }, [user, dispatch]);
+        dispatch(requestDailyStat({ user }));
+    }, [user, dispatch]);
 
     const onChange = (pagination, filters, sorter, extra) => {
         console.log('params', pagination, filters, sorter, extra);
@@ -176,31 +171,33 @@ const Count = () => {
                 <StyledHeader>일일 방문자 수</StyledHeader>
                 <StyledContent>
                     <CardWrapp>
-                        {/* <StyledCard title="오늘 방문자 수 " bordered={false}>
-                            <p>
-                                <span>50</span>명
-                            </p>
+                        <StyledCard title="오늘 방문자 수 " bordered={false}>
+                            <p>{/* <span>{countData.type2.today_visit}</span>명 */}</p>
                         </StyledCard>
-                        <StyledCard title=" 이모티콘 잔여 수량 " bordered={false}>
+                        <StyledCard title=" 이벤트 1 참여자 수 " bordered={false}>
                             <p>
                                 <span>5050</span>개
                             </p>
-                        </StyledCard> */}
+                        </StyledCard>
+                        <StyledCard title=" 이벤트 2 참여자 수 " bordered={false}>
+                            <p>
+                                <span>5050</span>개
+                            </p>
+                        </StyledCard>
                     </CardWrapp>
 
                     <TableWrap>
-                    <Table
-                        columns={columns}
-                        dataSource={countData}
-                        onChange={onChange}
-                        size="small"
-                    ></Table>
-                    
-                    {/* {dailyData.map((data) => (
+                        <Table
+                            columns={columns}
+                            dataSource={countData}
+                            onChange={onChange}
+                            size="small"
+                        />
+
+                        {/* {dailyData.map((data) => (
                         <p>{data.trim_date}</p>
                         ))}
                         <p>{dailyData}</p> */}
-
                     </TableWrap>
                 </StyledContent>
             </Layout>

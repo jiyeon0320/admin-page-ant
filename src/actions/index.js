@@ -31,12 +31,8 @@ export const successLogout = () => ({
     type: SUCCESS_LOGOUT,
 });
 
-export const requestDailyStat = ({ userid, pwd }) => ({
+export const requestDailyStat = () => ({
     type: REQUEST_DAILY_STAT,
-    payload: {
-        userid,
-        pwd,
-    },
 });
 
 export const successDailyStat = (data) => ({

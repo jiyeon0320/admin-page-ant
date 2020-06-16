@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Layout, Table } from 'antd';
+import { requestEventUsers } from '../actions';
 import styled from 'styled-components';
 import Sidebar from '../layouts/Sidebar';
 // import { VerticalAlignBottomOutlined } from '@ant-design/icons';
@@ -27,6 +29,7 @@ const StyledTable = styled(Table)`
 // `;
 const columns = [
     {
+        key: 'name',
         title: '이름',
         dataIndex: 'name',
         render: (name) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{name}</p>,
@@ -35,86 +38,45 @@ const columns = [
         title: '연락처',
         dataIndex: 'phone',
         align: 'center',
-        render: (name) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{name}</p>,
+        render: (phone) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{phone}</p>,
     },
+    {
+        title: '응모날짜',
+        dataIndex: 'reqdate',
+        align: 'center',
+        render: (reqdate) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{reqdate}</p>,
+    },
+    {
+        title: '쿠폰번호',
+        dataIndex: 'coupon',
+        align: 'center',
+        render: (coupon) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{coupon}</p>,
+    },
+
     {
         title: '이벤트1 참여',
         dataIndex: 'event1',
         align: 'center',
-        render: (name) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{name}</p>,
+        render: (event1) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{event1}</p>,
     },
+
     {
         title: '이벤트2 참여',
         dataIndex: 'event2',
         align: 'center',
-        render: (name) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{name}</p>,
-    },
-    {
-        title: '이벤트2 코드',
-        dataIndex: 'event2code',
-        align: 'center',
-        render: (name) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{name}</p>,
-        sorter: {
-            compare: (a, b) => a.event2code - b.event2code,
-            multiple: 2,
-        },
-    },
-    {
-        title: '이모티콘 수령 유무',
-        dataIndex: 'emoticon',
-        align: 'center',
-        render: (name) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{name}</p>,
+        render: (event2) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{event2}</p>,
     },
 ];
 
-const data = [
-    {
-        key: '1',
-        name: 'John Brown',
-        phone: '010-0000-0000',
-        event1: 'Y',
-        event2: 'Y',
-        event2code: 'X532-ABCD-13FD',
-        emoticon: 'Y',
-    },
-    {
-        key: '2',
-        name: 'Jim Green',
-        phone: '010-1111-1111',
-        event1: 'Y',
-        event2: 'Y',
-        event2code: 'Y5Z3-ABCD-16GS',
-        emoticon: 'N',
-    },
-    {
-        key: '3',
-        name: 'Joe Black',
-        phone: '010-2222-2222',
-        event1: 'N',
-        event2: 'Y',
-        event2code: 'FH54-ABCD-QE45',
-        emoticon: 'N',
-    },
-    {
-        key: '4',
-        name: 'Jim Red',
-        phone: '010-3333-3333',
-        event1: 'Y',
-        event2: 'N',
-        event2code: '546G-ABCD-545A',
-        emoticon: 'Y',
-    },
-    {
-        key: '5',
-        name: 'Amie Jule',
-        phone: '010-4444-5555',
-        event1: 'Y',
-        event2: 'N',
-        event2code: 'AD53-ABCD-1DF5',
-        emoticon: 'N',
-    },
-];
 const Users = () => {
+    const user = useSelector((state) => state.auth.userid);
+    const usersData = useSelector((state) => state.usersData);
+    const dispatch = useDispatch();
+    console.log(usersData);
+    useEffect(() => {
+        dispatch(requestEventUsers({ user }));
+    }, [user, dispatch]);
+
     const onChange = (pagination, filters, sorter, extra) => {
         console.log('params', pagination, filters, sorter, extra);
     };
@@ -126,7 +88,7 @@ const Users = () => {
                 <StyledContent>
                     <StyledTable
                         columns={columns}
-                        dataSource={data}
+                        dataSource={usersData}
                         onChange={onChange}
                         size="small"
                     ></StyledTable>
