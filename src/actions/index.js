@@ -8,6 +8,9 @@ export const SUCCESS_LOGOUT = 'successLogout';
 export const REQUEST_DAILY_STAT = 'requestDailyStat';
 export const SUCCESS_DAILY_STAT = 'successDailyStat';
 
+export const REQUEST_COUNT_STAT = 'requestCountStat';
+export const SUCCESS_COUNT_STAT = 'successCountStat';
+
 export const REQUEST_EVENT_USERS = 'requestEventUsers';
 export const SUCCESS_EVENT_USERS = 'successEventUsers';
 
@@ -38,6 +41,13 @@ export const requestDailyStat = () => ({
 export const successDailyStat = (data) => ({
     type: SUCCESS_DAILY_STAT,
     payload: data,
+});
+export const requestCountStat = () => ({
+    type: REQUEST_COUNT_STAT,
+});
+export const successCountStat = ({ today_visit, remain_event1, remain_event2 }) => ({
+    type: SUCCESS_COUNT_STAT,
+    payload: { today_visit, remain_event1, remain_event2 },
 });
 
 export const requestEventUsers = () => ({

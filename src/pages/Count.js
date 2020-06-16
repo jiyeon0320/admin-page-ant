@@ -151,44 +151,27 @@ const columns = [
     },
 ];
 
-const cardData = [
-    {
-        key: 'today_visit',
-        title: '오늘 방문자 수',
-        dataIndex: 'today_visit',
-        align: 'center',
-        render: (today_visit) => (
-            <p style={{ fontSize: '18px', paddingTop: '11px' }}>{today_visit}</p>
-        ),
-    },
-    {
-        title: '이벤트 1 참여자',
-        dataIndex: 'remain_event1',
-        align: 'center',
-        render: (remain_event1) => (
-            <p style={{ fontSize: '18px', paddingTop: '11px' }}>{remain_event1}</p>
-        ),
-    },
-    {
-        title: '이벤트 2 참여자',
-        dataIndex: 'remain_event2',
-        align: 'center',
-        render: (remain_event2) => (
-            <p style={{ fontSize: '18px', paddingTop: '11px' }}>{remain_event2}</p>
-        ),
-    },
-];
 const Count = () => {
     // const [data, setData] = useState('');
     const user = useSelector((state) => state.auth.userid);
+    const dailyData = useSelector((state) => state.dailyData);
     const countData = useSelector((state) => state.countData);
     const dispatch = useDispatch();
-    console.log(countData);
-    console.log(countData.facebook);
-    console.log(countData.today_visit);
 
-    // const emojiCount = countData.map((cnt) => <li>{cnt}</li>);
-    // console.log(emojiCount);
+    console.log(dailyData.type2);
+    const dailyType2 = dailyData.type2;
+    console.log(countData);
+    console.log(dailyType2);
+    let visit = '';
+    let event1 = '';
+    let event2 = '';
+    // const visit = '';
+    if (dailyType2) {
+        visit = dailyType2.today_visit;
+        event1 = dailyType2.remain_event1;
+        event2 = dailyType2.remain_event2;
+    }
+
     useEffect(() => {
         dispatch(requestDailyStat({ user }));
     }, [user, dispatch]);
@@ -205,33 +188,26 @@ const Count = () => {
                     {/* <ul>{emojiCount}</ul> */}
                     <CardWrapp>
                         <StyledCard title="오늘 방문자 수 " bordered={false}>
-                            <p>{/* <span>{countData.today_visit}</span>명 */}</p>
-                        </StyledCard>
-                        <StyledCard title=" 이벤트1 참여자 " bordered={false}>
                             <p>
-                                <span>{}</span>명
+                                <span>{visit}</span>명
                             </p>
                         </StyledCard>
-                        <StyledCard title=" 이벤트2 참여자 " bordered={false}>
+                        <StyledCard title=" 이벤트1 잔여량  " bordered={false}>
                             <p>
-                                <span>{}</span>명
+                                <span>{event1}</span>개
+                            </p>
+                        </StyledCard>
+                        <StyledCard title=" 이벤트2 잔여량 " bordered={false}>
+                            <p>
+                                <span>{event2}</span>개
                             </p>
                         </StyledCard>
                     </CardWrapp>
 
-                    {/* <TableWrap>
-                        <Table
-                            columns={cardData}
-                            dataSource={countData}
-                            onChange={onChange}
-                            size="small"
-                            rowKey={(data) => data.statno}
-                        />
-                    </TableWrap> */}
                     <TableWrap>
                         <Table
                             columns={columns}
-                            dataSource={countData}
+                            dataSource={dailyData.type1}
                             onChange={onChange}
                             size="small"
                             rowKey={(data) => data.statno}

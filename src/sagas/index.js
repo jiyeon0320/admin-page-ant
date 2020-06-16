@@ -46,9 +46,16 @@ function* requsetDailyStatFlow(action) {
     const response = yield call(Api.postDailyStat, action.payload);
     yield put(Actions.successDailyStat(response));
 
+    console.log(response.type1);
+    console.log(response.type2);
     // const response = yield call(Api.postDailyStat);
     // const { type1, type2 } = response;
     // yield put(Actions.successDailyStat({ type1, type2 }));
+}
+function* requsetCountStatFlow(action) {
+    const response = yield call(Api.postCountStat, action.payload);
+    yield put(Actions.successCountStat(response));
+    console.log(response);
 }
 
 function* requsetEventUsersFlow(action) {
@@ -59,5 +66,6 @@ function* requsetEventUsersFlow(action) {
 export default function* () {
     yield fork(authenticationWorkFlow);
     yield takeLatest(Actions.REQUEST_DAILY_STAT, requsetDailyStatFlow);
+    yield takeLatest(Actions.REQUEST_COUNT_STAT, requsetCountStatFlow);
     yield takeLatest(Actions.REQUEST_EVENT_USERS, requsetEventUsersFlow);
 }

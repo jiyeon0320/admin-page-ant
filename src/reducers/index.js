@@ -2,12 +2,14 @@ import {
     SUCCESS_ADMIN_LOGIN,
     SUCCESS_LOGOUT,
     SUCCESS_DAILY_STAT,
+    SUCCESS_COUNT_STAT,
     SUCCESS_EVENT_USERS,
 } from '../actions';
 
 export const initializeState = {
     auth: null,
-    countData: [],
+    dailyData: [],
+    countData: {},
     usersData: [],
 };
 
@@ -18,6 +20,8 @@ export default (state = initializeState, action) => {
         case SUCCESS_LOGOUT:
             return { ...state, auth: null };
         case SUCCESS_DAILY_STAT:
+            return { ...state, dailyData: action.payload };
+        case SUCCESS_COUNT_STAT:
             return { ...state, countData: action.payload };
         case SUCCESS_EVENT_USERS:
             return { ...state, usersData: action.payload };
