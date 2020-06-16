@@ -25,7 +25,7 @@ const AdminLogin = () => {
     const [pwd, setPwd] = useState('');
     const history = useHistory();
     useEffect(()=>{
-        if(auth !== null){
+        if(auth !== null){x
             history.push('/');  //count
         }
     },[auth, history]);
@@ -35,6 +35,8 @@ const AdminLogin = () => {
     }
     const onFinish = (values) => {
         console.log('Success:', values);
+        dispatch(requestAdminLogin({userid, pwd}));
+
     };
 
     const onFinishFailed = (errorInfo) => {

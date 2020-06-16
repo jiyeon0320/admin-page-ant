@@ -4,6 +4,7 @@ import { Layout, Table } from 'antd';
 import { requestEventUsers } from '../actions';
 import styled from 'styled-components';
 import Sidebar from '../layouts/Sidebar';
+// import XLSX from 'xlsx';
 // import { VerticalAlignBottomOutlined } from '@ant-design/icons';
 // import './Users.css';
 const { Header, Content } = Layout;

@@ -4,6 +4,7 @@ import { requestDailyStat } from '../actions';
 import { Layout, Table, Card } from 'antd';
 import styled from 'styled-components';
 import Sidebar from '../layouts/Sidebar';
+import { ExportCSV } from './ExportCSV'
 
 const { Header, Content } = Layout;
 
@@ -212,11 +213,7 @@ const Count = () => {
                             size="small"
                             rowKey={(data) => data.statno}
                         />
-
-                        {/* {dailyData.map((data) => (
-                        <p>{data.trim_date}</p>
-                        ))}
-                        <p>{dailyData}</p> */}
+                        <ExportCSV csvData={dailyData.type1} fileName={dailyData.fileName} />
                     </TableWrap>
                 </StyledContent>
             </Layout>
