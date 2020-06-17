@@ -4,7 +4,7 @@ import { requestDailyStat } from '../actions';
 import { Layout, Table, Card } from 'antd';
 import styled from 'styled-components';
 import Sidebar from '../layouts/Sidebar';
-import { ExportCSV } from './ExportCSV'
+import { ExportCSV } from './ExportCSV';
 
 const { Header, Content } = Layout;
 
@@ -44,7 +44,7 @@ const CardWrapp = styled.div`
 const columns = [
     {
         title: '날짜',
-        dataIndex: 'date',
+        dataIndex: 'trim_date',
         key: 'statno',
         align: 'center',
         render: (trim_date) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{trim_date}</p>,
@@ -158,6 +158,7 @@ const Count = () => {
     const dailyData = useSelector((state) => state.dailyData);
     const countData = useSelector((state) => state.countData);
     const dispatch = useDispatch();
+    const filename = 'dailyCount';
 
     console.log(dailyData.type2);
     const dailyType2 = dailyData.type2;
@@ -213,7 +214,7 @@ const Count = () => {
                             size="small"
                             rowKey={(data) => data.statno}
                         />
-                        <ExportCSV csvData={dailyData.type1} fileName={dailyData.fileName} />
+                        <ExportCSV csvData={dailyData.type1} fileName={filename} />
                     </TableWrap>
                 </StyledContent>
             </Layout>

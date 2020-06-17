@@ -4,7 +4,8 @@ import { Layout, Table } from 'antd';
 import { requestEventUsers } from '../actions';
 import styled from 'styled-components';
 import Sidebar from '../layouts/Sidebar';
-// import XLSX from 'xlsx';
+import { ExportCSV } from './ExportCSV';
+
 // import { VerticalAlignBottomOutlined } from '@ant-design/icons';
 // import './Users.css';
 const { Header, Content } = Layout;
@@ -73,6 +74,7 @@ const Users = () => {
     const user = useSelector((state) => state.auth.userid);
     const usersData = useSelector((state) => state.usersData);
     const dispatch = useDispatch();
+    const filename = 'userData';
     console.log(usersData);
     useEffect(() => {
         dispatch(requestEventUsers({ user }));
@@ -84,7 +86,7 @@ const Users = () => {
     return (
         <Layout>
             <Sidebar />
-            <Layout>
+            <Layout style={{ overflow: 'visible ' }}>
                 <StyledHeader>이벤트 당첨자 정보</StyledHeader>
                 <StyledContent>
                     <StyledTable
@@ -93,6 +95,7 @@ const Users = () => {
                         onChange={onChange}
                         size="small"
                     ></StyledTable>
+                    <ExportCSV csvData={usersData} fileName={filename} />
                 </StyledContent>
             </Layout>
         </Layout>

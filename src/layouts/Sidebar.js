@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { requestLogout } from '../actions';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Button } from 'antd';
 import styled from 'styled-components';
 import { BarChartOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
@@ -11,16 +11,23 @@ const { Sider } = Layout;
 const StyledSider = styled(Sider)`
     width: 400;
     height: 100vh;
+    overflow: auto;
 `;
 const Logo = styled.div`
     color: #ffffff;
     text-align: center;
-    margin: 30px 0;
+    margin: 30px;
+`;
+
+const StyledButton = styled(Button)`
+    margin-top: 70vh;
+    margin-left: 10%;
+    width: 80%;
 `;
 
 const Sidebar = () => {
     const dispatch = useDispatch();
-    const auth = useSelector(state => state.auth);
+    const auth = useSelector((state) => state.auth);
     return (
         <StyledSider width="250">
             <Logo>관리자 페이지</Logo>
@@ -33,18 +40,18 @@ const Sidebar = () => {
                 </Menu.Item>
             </Menu>
             {auth !== null ? (
-                <button
+                <StyledButton
+                    type="primary"
                     onClick={() => {
                         dispatch(requestLogout());
                     }}
                 >
                     로그아웃
-
-                </button>
-            ) : ('')}
-
-
-        </StyledSider >
+                </StyledButton>
+            ) : (
+                ''
+            )}
+        </StyledSider>
     );
 };
 
