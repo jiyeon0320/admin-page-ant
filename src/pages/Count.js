@@ -48,6 +48,7 @@ const columns = [
         key: 'statno',
         align: 'center',
         render: (trim_date) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{trim_date}</p>,
+        fixed: 'left',
     },
     {
         title: '접속자 수',
@@ -56,8 +57,9 @@ const columns = [
         render: (visitor) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{visitor}</p>,
         sorter: {
             compare: (a, b) => a.visitor - b.visitor,
-            multiple: 5,
+            multiple: 1,
         },
+        
     },
     {
         title: '실 참여자 수',
@@ -66,7 +68,7 @@ const columns = [
         render: (joiner) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{joiner}</p>,
         sorter: {
             compare: (a, b) => a.joiner - b.joiner,
-            multiple: 4,
+            multiple: 2,
         },
     },
     {
@@ -81,7 +83,7 @@ const columns = [
                 ),
                 sorter: {
                     compare: (a, b) => a.channel_kakao - b.channel_kakao,
-                    multiple: 1,
+                    multiple: 3,
                 },
             },
             {
@@ -93,7 +95,7 @@ const columns = [
                 ),
                 sorter: {
                     compare: (a, b) => a.channel_fb - b.channel_fb,
-                    multiple: 3,
+                    multiple: 4,
                 },
             },
             {
@@ -105,7 +107,7 @@ const columns = [
                 ),
                 sorter: {
                     compare: (a, b) => a.channel_tw - b.channel_tw,
-                    multiple: 2,
+                    multiple: 5,
                 },
             },
         ],
@@ -120,7 +122,7 @@ const columns = [
                 render: (kakao) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{kakao}</p>,
                 sorter: {
                     compare: (a, b) => a.kakao - b.kakao,
-                    multiple: 1,
+                    multiple: 6,
                 },
             },
             {
@@ -133,7 +135,7 @@ const columns = [
                 key: 'age',
                 sorter: {
                     compare: (a, b) => a.facebook - b.facebook,
-                    multiple: 3,
+                    multiple: 7,
                 },
             },
             {
@@ -145,7 +147,91 @@ const columns = [
                 ),
                 sorter: {
                     compare: (a, b) => a.twitter - b.twitter,
-                    multiple: 2,
+                    multiple: 8,
+                },
+            },
+        ],
+    },
+
+
+
+
+
+
+
+
+    {
+        title: '각 SNS 클릭 카운트',
+        children: [
+            {
+                title: '카카오톡',
+                dataIndex: 'try_kakao',
+                align: 'center',
+                render: (try_kakao) => <p style={{ fontSize: '18px', paddingTop: '11px' }}>{try_kakao}</p>,
+                sorter: {
+                    compare: (a, b) => a.try_kakao - b.try_kakao,
+                    multiple: 9,
+                },
+            },
+            {
+                title: '페이스북',
+                dataIndex: 'try_fb',
+                align: 'center',
+                render: (try_fb) => (
+                    <p style={{ fontSize: '18px', paddingTop: '11px' }}>{try_fb}</p>
+                ),
+                key: 'age',
+                sorter: {
+                    compare: (a, b) => a.try_fb - b.try_fb,
+                    multiple: 10,
+                },
+            },
+            {
+                title: '트위터',
+                dataIndex: 'try_tw',
+                align: 'center',
+                render: (try_tw) => (
+                    <p style={{ fontSize: '18px', paddingTop: '11px' }}>{try_tw}</p>
+                ),
+                sorter: {
+                    compare: (a, b) => a.try_tw - b.try_tw,
+                    multiple: 11,
+                },
+            },
+            {
+                title: '카카오스토리',
+                dataIndex: 'try_ks',
+                align: 'center',
+                render: (try_ks) => (
+                    <p style={{ fontSize: '18px', paddingTop: '11px' }}>{try_ks}</p>
+                ),
+                sorter: {
+                    compare: (a, b) => a.try_ks - b.try_ks,
+                    multiple: 12,
+                },
+            },
+            {
+                title: '네이버',
+                dataIndex: 'try_naver',
+                align: 'center',
+                render: (try_naver) => (
+                    <p style={{ fontSize: '18px', paddingTop: '11px' }}>{try_naver}</p>
+                ),
+                sorter: {
+                    compare: (a, b) => a.try_naver - b.try_naver,
+                    multiple: 13,
+                },
+            },
+            {
+                title: '라인',
+                dataIndex: 'try_line',
+                align: 'center',
+                render: (try_line) => (
+                    <p style={{ fontSize: '18px', paddingTop: '11px' }}>{try_line}</p>
+                ),
+                sorter: {
+                    compare: (a, b) => a.try_line - b.try_line,
+                    multiple: 14,
                 },
             },
         ],
@@ -212,6 +298,7 @@ const Count = () => {
                             dataSource={dailyData.type1}
                             onChange={onChange}
                             size="small"
+                            bordered
                             rowKey={(data) => data.statno}
                         />
                         <ExportCSV csvData={dailyData.type1} fileName={filename} />
